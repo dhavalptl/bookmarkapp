@@ -1,3 +1,3 @@
-Application that create new bookmarks and display same into list
+All my development progress displays in kthis site
 
-For this application I used reactjs with hooks
+Mainly for development reactjs is using
