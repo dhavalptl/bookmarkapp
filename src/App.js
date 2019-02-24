@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useRef, useContext, useEffect } from 'react';
+import React, { useReducer, useState, useRef, useContext } from 'react';
 import './App.css';
 import reducer from './reducer';
 
@@ -9,30 +9,26 @@ function BookMarkInputForm() {
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
   const titleRef = useRef(null);
-  useEffect(() => {
+  const onAddBookmark = (event) => {
+    event.preventDefault();
+    dispatch({
+      type: 'ADD_BOOKMARK', payload: {
+        id: Date.now(),
+        title,
+        url
+      }
+    });
+    setTitle('');
+    setUrl('');
     titleRef.current.focus();
-  }, []);
+  }
   return (
-    <div className="form">
+    <form className="form" onSubmit={onAddBookmark}>
       <h2>Bookmark Details</h2>
-      <input ref={titleRef} type="text" value={title} placeholder='Enter Bookmark Name' required onChange={(e) => setTitle(e.target.value)} />
-      <input type="url" value={url} placeholder='Enter URL' required onChange={(e) => setUrl(e.target.value)} />
-      <button onClick={() => {
-        if (!title || !url) {
-          return;
-        }
-        dispatch({
-          type: 'ADD_BOOKMARK', payload: {
-            id: Date.now(),
-            title,
-            url
-          }
-        });
-        setTitle('');
-        setUrl('');
-        titleRef.current.focus();
-      }}>Add Bookmark</button>
-    </div>
+      <input ref={titleRef} autoFocus maxLength="70" type="text" value={title} placeholder='Enter Bookmark Name' required onChange={(e) => { setTitle(e.target.value) }} />
+      <input type="url" value={url} maxLength="150" placeholder='Enter URL' required onChange={(e) => setUrl(e.target.value)} />
+      <button type="submit">Add Bookmark</button>
+    </form>
   );
 }
 
