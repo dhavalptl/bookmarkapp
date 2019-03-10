@@ -1,3 +1,1 @@
-All my development progress displays in kthis site
-
-Mainly for development reactjs is using
+Application can create bookmarks and display same into list
